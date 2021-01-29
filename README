@@ -1,0 +1,24 @@
+Ping-Pong MPI Performance Tester
+written by Bryan Carroll
+
+This program steps through every pair of MPI processes and measures the bandwidth 
+between them by sending messages of determined size between the pair multiple times and
+calculating the average speed. Note that the measured bandwidth only takes into account
+the buffer data. The MPI and network overhead are not taken into account. If you want to
+know the overall bandwidth, you will need to take those into account. The results are
+output to the perftest.txt file. 
+
+By setting a larger END_SIZE than the START_SIZE in the source, the program will measure
+the bandwidth of increasing message size by increasing the number of elements 
+by the MULTIPLIER size until it surpasses the END_SIZE. For example, say you have
+
+#define START_SIZE 100
+#define END_SIZE 100000
+#define MULTIPLIER 10
+#define ITERATIONS 30.
+
+The first pair of processes will send messages of 100 elements back and forth 30
+times for a total of 60 messages. Then the average speed will be recorded into
+perftest.txt. Then that same pair of processes will do the same with 100 * 10 = 1000
+elements; then 1000 * 10 = 10,000 elements and 10,000 * 10 = 100,000 after that. Then
+the next pair of processes will do the same and then the next pair and so on.
